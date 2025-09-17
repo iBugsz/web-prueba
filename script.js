@@ -43,10 +43,16 @@ function mostrarMods() {
       ? mod.name.substring(0, mod.name.lastIndexOf('.'))
       : mod.name || 'Desconocido';
 
+    // 🔹 Card principal
     const modCard = document.createElement('div');
     modCard.className =
-      'flex items-center gap-4 bg-[#222] rounded-lg p-4 hover:bg-[#2d2d3d] transition';
+      'flex items-center gap-4 bg-[#222] rounded-lg p-4 transition-colors duration-200';
 
+    // 🔹 Contenedor hoverable (imagen + título)
+    const hoverContainer = document.createElement('div');
+    hoverContainer.className = 'flex items-center gap-4';
+
+    // 🔹 Imagen
     const imgBox = document.createElement('div');
     imgBox.className = 'w-24 h-24 flex-shrink-0';
 
@@ -54,19 +60,22 @@ function mostrarMods() {
       const img = document.createElement('img');
       img.src = mod.icon;
       img.alt = nameWithoutExt;
-      img.className = 'w-full h-full object-cover rounded-md';
+      img.className =
+        'w-full h-full object-cover rounded-md transition-transform duration-200 ease-in-out';
       img.onerror = () => {
-        img.src = 'assets/default-icon.png'; // fallback si no carga
+        img.src = 'assets/default-icon.png';
       };
       imgBox.appendChild(img);
     }
 
+    // 🔹 Info
     const info = document.createElement('div');
     info.className = 'flex-1 space-y-1';
 
     const title = document.createElement('h4');
     title.textContent = nameWithoutExt;
-    title.className = 'text-lg font-bold text-white';
+    title.className =
+      'text-lg font-bold text-white transition-colors duration-200 cursor-pointer';
 
     const author = document.createElement('p');
     author.textContent = `Autor: ${mod.author || 'Desconocido'}`;
@@ -80,10 +89,38 @@ function mostrarMods() {
     info.appendChild(author);
     info.appendChild(desc);
 
-    modCard.appendChild(imgBox);
-    modCard.appendChild(info);
+    hoverContainer.appendChild(imgBox);
+    hoverContainer.appendChild(info);
 
+    modCard.appendChild(hoverContainer);
     apiData.appendChild(modCard);
+
+    // 🔹 Eventos de hover sobre imagen o título
+    [imgBox, title].forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        // animación de la imagen
+        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1.1)';
+        // subrayar y cambiar color del título
+        title.style.color = '#1de9b6';
+        // cambiar fondo del card
+        modCard.style.backgroundColor = '#2d2d3d';
+      });
+      el.addEventListener('mouseleave', () => {
+        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1)';
+        title.style.color = 'white';
+        title.style.textDecoration = 'none';
+        modCard.style.backgroundColor = '#222';
+      });
+    });
+
+    title.addEventListener('mouseenter', () => {
+      title.style.color = '#1de9b6';
+      title.style.textDecoration = 'underline';
+    });
+    title.addEventListener('mouseleave', () => {
+      title.style.color = 'white';
+      title.style.textDecoration = 'none';
+    });
   });
 
   renderPaginacion();
