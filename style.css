@@ -53,6 +53,12 @@ body {
   justify-content: center;
   gap: 18px;
 }
+
+.logo-img {
+  width: 60px; /* ajusta según tu logo */
+  height: auto;
+}
+
 .logo .mark {
   width: 64px;
   height: 64px;
