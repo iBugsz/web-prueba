@@ -2,13 +2,47 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Samp Comunity</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Samp Community</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Fuente bonita -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>¡Hola desde mi web dinámica!</h1>
-    <button id="btnFetch">Cargar datos de API</button>
-    <pre id="apiData">Aquí aparecerán los datos de la API...</pre>
+    <!-- Barra superior -->
+    <nav class="topbar">
+      <a href="#" class="btn-nav">🏠 Hogar</a>
+      <a href="#" class="btn-nav">🧩 Mods</a>
+    </nav>
+
+    <!-- Hero principal -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="logo">
+          <div class="mark">🎮</div>
+          <h1>Samp Community</h1>
+        </div>
+        <span class="tagline"
+          >Brindando soporte para mods a <b>SA:MP MoonLoader</b></span
+        >
+
+        <div class="cta-row">
+          <a href="#" class="cta">⬇️ Descargar</a>
+          <a href="#" class="cta">🔎 Explorar Mods</a>
+          <a href="#" class="cta">❓ Preguntas Frecuentes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección dinámica -->
+    <section class="content">
+      <h2>¡Hola desde mi web dinámica!</h2>
+      <button id="btnFetch">Cargar datos de API</button>
+      <pre id="apiData">Aquí aparecerán los datos de la API...</pre>
+    </section>
 
     <script src="script.js"></script>
   </body>
