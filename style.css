@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+h1 {
+  color: #00ff99;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #00ff99;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+pre {
+  background: #222;
+  padding: 15px;
+  border-radius: 5px;
+  max-width: 500px;
+  overflow-x: auto;
+}

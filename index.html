@@ -1,61 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Samp Comunity</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #121212;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        h1 {
-            color: #00ff99;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background: #00ff99;
-            color: #121212;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        pre {
-            background: #222;
-            padding: 15px;
-            border-radius: 5px;
-            max-width: 500px;
-            overflow-x: auto;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>¡Hola desde mi web dinámica!</h1>
     <button id="btnFetch">Cargar datos de API</button>
     <pre id="apiData">Aquí aparecerán los datos de la API...</pre>
 
-    <script>
-        const btn = document.getElementById("btnFetch");
-        const apiData = document.getElementById("apiData");
-
-        btn.addEventListener("click", () => {
-            fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
-                .then(res => res.json())
-                .then(data => {
-                    apiData.textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(err => {
-                    apiData.textContent = "Error al cargar la API: " + err;
-                });
-        });
-    </script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
