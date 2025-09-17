@@ -4,7 +4,7 @@
   --bg-3: #e35c50;
   --accent: #ffd36b;
   --cta: #ff6b4a;
-  --ui-dark: rgba(0, 0, 0, 0.75);
+  --ui-dark: rgba(0, 0, 0, 0.85);
   --text: #f5f5f5;
 }
 
@@ -18,28 +18,38 @@ body {
     var(--bg-2) 40%,
     var(--bg-3) 80%
   );
+  min-height: 100vh;
 }
 
-/* Barra superior */
+/* 🔹 Barra superior fija como Geode */
 .topbar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
   display: flex;
-  gap: 12px;
-  padding: 18px 28px;
+  gap: 14px;
+  z-index: 100;
 }
 .btn-nav {
   background: var(--ui-dark);
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 8px;
   text-decoration: none;
   color: var(--text);
   font-weight: 600;
+  font-size: 14px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-nav:hover {
+  background: var(--cta);
+  transform: translateY(-2px);
 }
 
-/* Hero */
+/* 🔹 Hero central */
 .hero {
   text-align: center;
-  padding: 40px 20px;
+  padding: 120px 20px 60px; /* espacio para que no tape la barra superior */
 }
 .logo {
   display: flex;
@@ -70,6 +80,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 .cta {
   background: var(--ui-dark);
@@ -78,12 +89,14 @@ body {
   text-decoration: none;
   color: var(--text);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+  transition: background 0.2s, transform 0.2s;
 }
 .cta:hover {
   background: var(--cta);
+  transform: translateY(-2px);
 }
 
-/* Sección dinámica */
+/* 🔹 Sección dinámica */
 .content {
   max-width: 800px;
   margin: 40px auto;
