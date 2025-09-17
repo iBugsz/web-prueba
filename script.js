@@ -15,15 +15,23 @@ btn.addEventListener('click', () => {
     .then((data) => {
       console.log('JSON cargado:', data);
 
-      // Acceder al array dentro de "mods"
-      const names = data.mods.map((mod) => {
-        console.log('Nombre del mod:', mod.name);
-        return mod.name;
+      const names = data.mods.map((mod, index, array) => {
+        const nameWithoutExt = mod.name.includes('.')
+          ? mod.name.substring(0, mod.name.lastIndexOf('.'))
+          : mod.name;
+
+        // Solo el último nombre recibe un punto
+        return index === array.length - 1
+          ? nameWithoutExt + '.'
+          : nameWithoutExt;
       });
 
       // Mostrar separados por coma
       apiData.textContent = names.join(', ');
-      console.log('Todos los nombres concatenados:', names.join(', '));
+      console.log(
+        'Todos los nombres concatenados con punto solo al último:',
+        names.join(', '),
+      );
     })
     .catch((err) => {
       console.error('Error al cargar la API:', err);

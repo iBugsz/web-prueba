@@ -8,6 +8,17 @@
   --text: #f5f5f5;
 }
 
+#apiData {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #111;
+  color: rgb(255, 255, 255);
+  max-width: 100%; /* Nunca se sale del contenedor */
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
