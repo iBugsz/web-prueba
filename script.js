@@ -15,7 +15,7 @@ function cargarMods() {
       return res.json();
     })
     .then((data) => {
-      modsData = data.mods;
+      modsData = data.mods || [];
       filtrados = modsData; // Al inicio se muestran todos
       paginaActual = 1;
       mostrarMods();
@@ -29,39 +29,38 @@ function cargarMods() {
 function mostrarMods() {
   apiData.innerHTML = '';
 
-  if (filtrados.length === 0) {
+  if (!filtrados.length) {
     apiData.innerHTML = '<p>No se encontraron mods.</p>';
     return;
   }
 
-  // Calcular rango
   const inicio = (paginaActual - 1) * modsPorPagina;
   const fin = inicio + modsPorPagina;
   const paginaMods = filtrados.slice(inicio, fin);
 
-  // Renderizar mods
   paginaMods.forEach((mod) => {
-    const nameWithoutExt = mod.name.includes('.')
+    const nameWithoutExt = mod.name?.includes('.')
       ? mod.name.substring(0, mod.name.lastIndexOf('.'))
-      : mod.name;
+      : mod.name || 'Desconocido';
 
-    // 🔹 Contenedor principal de la tarjeta
     const modCard = document.createElement('div');
     modCard.className =
       'flex items-center gap-4 bg-[#222] rounded-lg p-4 hover:bg-[#2d2d3d] transition';
 
-    // 🔹 Imagen
     const imgBox = document.createElement('div');
     imgBox.className = 'w-24 h-24 flex-shrink-0';
+
     if (mod.icon) {
       const img = document.createElement('img');
       img.src = mod.icon;
       img.alt = nameWithoutExt;
       img.className = 'w-full h-full object-cover rounded-md';
+      img.onerror = () => {
+        img.src = 'assets/default-icon.png'; // fallback si no carga
+      };
       imgBox.appendChild(img);
     }
 
-    // 🔹 Info
     const info = document.createElement('div');
     info.className = 'flex-1 space-y-1';
 
@@ -81,37 +80,32 @@ function mostrarMods() {
     info.appendChild(author);
     info.appendChild(desc);
 
-    // 🔹 Armar card
     modCard.appendChild(imgBox);
     modCard.appendChild(info);
 
     apiData.appendChild(modCard);
   });
 
-  // Renderizar paginación
   renderPaginacion();
 }
+
 function renderPaginacion() {
-  // Quitar paginación previa
   const oldPagination = document.querySelector('.pagination');
   if (oldPagination) oldPagination.remove();
 
   const totalPaginas = Math.ceil(filtrados.length / modsPorPagina);
-  if (totalPaginas <= 1) return; // No mostrar si solo hay 1 página
+  if (totalPaginas <= 1) return;
 
   const inicio = (paginaActual - 1) * modsPorPagina + 1;
   const fin = Math.min(paginaActual * modsPorPagina, filtrados.length);
 
-  // Contenedor principal
   const pagination = document.createElement('div');
   pagination.className =
     'pagination flex justify-between items-center my-3 bg-[#111] text-gray-300 px-4 py-2 rounded-md text-sm';
 
-  // 🔹 Texto "Mostrando..."
   const info = document.createElement('span');
   info.textContent = `Mostrando ${fin} de ${filtrados.length} mods`;
 
-  // 🔹 Controles de página
   const controls = document.createElement('div');
   controls.className = 'flex items-center gap-2';
 
@@ -155,10 +149,9 @@ function renderPaginacion() {
   pagination.appendChild(info);
   pagination.appendChild(controls);
 
-  // 📌 Insertar justo después de la barra de búsqueda/ordenar
-  const searchBar = apiData.parentNode.querySelector('.flex.justify-between');
-  searchBar.insertAdjacentElement('afterend', pagination);
+  // 🔹 Insertar la paginación directamente después de apiData
+  apiData.insertAdjacentElement('afterend', pagination);
 }
 
-// 🚀 Ejecuta apenas cargue la página
-cargarMods();
+// Ejecutar apenas cargue la página
+document.addEventListener('DOMContentLoaded', cargarMods);
