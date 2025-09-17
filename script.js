@@ -71,17 +71,34 @@ function mostrarMods() {
 
     // 🔹 Imagen
     const imgBox = document.createElement('div');
-    imgBox.className = 'w-24 h-24 flex-shrink-0';
+    imgBox.className =
+      'w-24 h-24 flex-shrink-0 flex items-center justify-center';
+
+    // Gif de cargando / default
+    const loader = document.createElement('img');
+    loader.src = 'https://i.gifer.com/XOsX.gif'; // gif de cargando/default
+    loader.className = 'w-12 h-12';
+    imgBox.appendChild(loader);
 
     if (mod.icon) {
       const img = document.createElement('img');
       img.src = mod.icon;
       img.alt = nameWithoutExt;
       img.className =
-        'w-full h-full object-cover rounded-md transition-transform duration-200 ease-in-out';
-      img.onerror = () => {
-        img.src = 'assets/default-icon.png';
+        'w-full h-full object-cover rounded-md transition-transform duration-200 ease-in-out hidden'; // inicialmente oculta
+
+      // Cuando la imagen carga correctamente
+      img.onload = () => {
+        loader.remove(); // quitamos el loader
+        img.classList.remove('hidden'); // mostramos la imagen
       };
+
+      // Si falla la carga
+      img.onerror = () => {
+        // dejamos el loader (gif) visible
+        img.remove();
+      };
+
       imgBox.appendChild(img);
     }
 
