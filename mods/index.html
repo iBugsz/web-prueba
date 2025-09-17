@@ -35,12 +35,16 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main class="flex-1 flex flex-col max-w-5xl mx-auto mt-24 px-6">
+    <main
+      class="flex-1 flex flex-col max-w-5xl mx-auto mt-24 sm:mt-16 px-4 sm:px-6"
+    >
       <section class="content">
         <!-- 🔹 Layout de 2 columnas -->
-        <div class="flex gap-6">
+        <div class="flex flex-col md:flex-row gap-6">
           <!-- Filtros -->
-          <aside class="w-[250px] bg-[#1e1e2e] text-white p-4 rounded-lg h-fit">
+          <aside
+            class="w-full md:w-[250px] bg-[#1e1e2e] text-white p-4 rounded-lg h-fit"
+          >
             <h3 class="text-lg font-bold mb-3">Filtros de búsqueda</h3>
 
             <details open class="mb-3">
@@ -65,7 +69,9 @@
           <!-- Columna Mods -->
           <div class="flex-1 bg-[#1a1a26] p-5 rounded-lg text-white">
             <!-- 🔹 Barra de búsqueda y ordenar -->
-            <div class="flex justify-between items-center mb-4 gap-4">
+            <div
+              class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4"
+            >
               <div
                 class="flex items-center bg-[#1e1e1e] px-3 py-2 rounded-md flex-1"
               >
@@ -79,7 +85,7 @@
               </div>
 
               <div
-                class="flex items-center gap-2 bg-[#1e1e1e] px-3 py-2 rounded-md"
+                class="flex items-center gap-2 bg-[#1e1e1e] px-3 py-2 rounded-md mt-2 sm:mt-0"
               >
                 <i class="fa-solid fa-list text-gray-400"></i>
                 <span>Ordenar por :</span>
