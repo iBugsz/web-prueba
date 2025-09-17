@@ -101,7 +101,7 @@ main {
 /* 🔹 Sección dinámica */
 .content {
   max-width: 800px;
-  margin: 40px auto;
+  margin: 100px auto;
   padding: 40px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
