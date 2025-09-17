@@ -104,3 +104,44 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }
+
+/* Barra superior */
+.topbar {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+}
+
+/* Botones generales */
+.btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: background 0.25s, color 0.25s;
+}
+
+/* 🔹 Botón Hogar */
+.btn-nav:first-child {
+  background: #2b0d0b; /* oscuro */
+  color: #f08080; /* texto rojizo */
+}
+.btn-nav:first-child:hover {
+  background: #f08080; /* cambia al color de texto */
+  color: #2b0d0b; /* texto se invierte */
+}
+
+/* 🔹 Botón Mods */
+.btn-nav:last-child {
+  background: #fbeeed; /* claro */
+  color: #111; /* texto oscuro */
+}
+.btn-nav:last-child:hover {
+  background: #111; /* oscuro */
+  color: #fbeeed; /* texto claro */
+}
