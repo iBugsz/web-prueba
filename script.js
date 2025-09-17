@@ -26,6 +26,23 @@ function cargarMods() {
     });
 }
 
+// 🔹 Función de búsqueda
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  filtrados = modsData.filter((mod) => {
+    const name = mod.name?.toLowerCase() || '';
+    const author = mod.author?.toLowerCase() || '';
+    const desc = mod.description?.toLowerCase() || '';
+    return (
+      name.includes(query) || author.includes(query) || desc.includes(query)
+    );
+  });
+
+  paginaActual = 1; // resetear página al buscar
+  mostrarMods();
+});
+
 function mostrarMods() {
   apiData.innerHTML = '';
 
@@ -98,11 +115,8 @@ function mostrarMods() {
     // 🔹 Eventos de hover sobre imagen o título
     [imgBox, title].forEach((el) => {
       el.addEventListener('mouseenter', () => {
-        // animación de la imagen
         if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1.1)';
-        // subrayar y cambiar color del título
         title.style.color = '#1de9b6';
-        // cambiar fondo del card
         modCard.style.backgroundColor = '#2d2d3d';
       });
       el.addEventListener('mouseleave', () => {
@@ -186,7 +200,6 @@ function renderPaginacion() {
   pagination.appendChild(info);
   pagination.appendChild(controls);
 
-  // 🔹 Insertar la paginación directamente después de apiData
   apiData.insertAdjacentElement('beforebegin', pagination);
 }
 
