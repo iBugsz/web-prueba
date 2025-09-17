@@ -150,7 +150,7 @@ function renderPaginacion() {
   pagination.appendChild(controls);
 
   // 🔹 Insertar la paginación directamente después de apiData
-  apiData.insertAdjacentElement('afterend', pagination);
+  apiData.insertAdjacentElement('beforebegin', pagination);
 }
 
 // Ejecutar apenas cargue la página
