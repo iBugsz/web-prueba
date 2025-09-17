@@ -67,19 +67,6 @@ body {
   gap: 12px;
   flex-wrap: wrap;
 }
-.cta {
-  background: var(--ui-dark);
-  padding: 12px 18px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--text);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-  transition: background 0.2s, transform 0.2s;
-}
-.cta:hover {
-  background: var(--cta);
-  transform: translateY(-2px);
-}
 
 /* 🔹 Sección dinámica */
 .content {
@@ -114,8 +101,8 @@ body {
 }
 
 .btn-nav:hover {
-  background: #111; /* oscuro */
-  color: #fbeeed; /* texto claro */
+  background: #ffffff; /* oscuro */
+  color: #000000; /* texto claro */
 }
 
 /* Texto fijo en verde */
@@ -129,9 +116,8 @@ body {
 /* Botón dentro de tagline */
 .tag-btn {
   display: inline-block;
-  color: #fff;
+  color: #efff15;
   font-weight: 700;
-  padding: 4px 10px;
   margin-left: 4px;
   border-radius: 6px;
   text-decoration: none;
@@ -139,7 +125,40 @@ body {
 }
 
 .tag-btn:hover {
-  color: #fff; /* texto blanco */
-  text-decoration: underline; /* subrayado */
-  transform: translateY(-2px);
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer {
+  background: #111;
+  color: #aaa;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.footer a {
+  color: #4cafef;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer .socials {
+  margin-top: 10px;
+}
+
+.footer .socials a {
+  margin: 0 8px;
+  font-size: 18px;
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.footer .socials a:hover {
+  color: #fff;
 }
