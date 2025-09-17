@@ -139,5 +139,7 @@ body {
 }
 
 .tag-btn:hover {
+  color: #fff; /* texto blanco */
+  text-decoration: underline; /* subrayado */
   transform: translateY(-2px);
 }
