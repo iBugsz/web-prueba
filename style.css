@@ -19,7 +19,16 @@
   max-width: 100%; /* Nunca se sale del contenedor */
 }
 
+html,
 body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* hace que el body ocupe toda la pantalla */
   margin: 0;
   font-family: 'Poppins', sans-serif;
   color: var(--text);
@@ -30,6 +39,10 @@ body {
     var(--bg-3) 80%
   );
   min-height: 100vh;
+}
+
+main {
+  flex: 1; /* el contenido empuja el footer hacia abajo */
 }
 
 /* 🔹 Barra superior */
@@ -92,13 +105,6 @@ body {
   padding: 20px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-}
-
-/* Barra superior */
-.topbar {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
 }
 
 /* Botones generales */
