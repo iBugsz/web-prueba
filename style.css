@@ -118,31 +118,6 @@ body {
   color: #fbeeed; /* texto claro */
 }
 
-.tagline {
-  display: block;
-  margin: 12px 0 20px;
-  font-weight: 600;
-  font-size: 18px;
-  background: linear-gradient(270deg, #ff6b6b, #ffd36b, #6bc9ff, #9b6bff);
-  background-size: 600% 600%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 8s ease infinite;
-}
-
-/* Animación del gradiente */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 /* Texto fijo en verde */
 .mods-text {
   color: #4caf50; /* Verde */
@@ -154,7 +129,6 @@ body {
 /* Botón dentro de tagline */
 .tag-btn {
   display: inline-block;
-  background: rgba(0, 0, 0, 0.6);
   color: #fff;
   font-weight: 700;
   padding: 4px 10px;
@@ -165,6 +139,5 @@ body {
 }
 
 .tag-btn:hover {
-  background: #ff6b6b;
   transform: translateY(-2px);
 }
