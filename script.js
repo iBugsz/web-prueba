@@ -10,8 +10,8 @@ btn.addEventListener('click', () => {
       return res.json();
     })
     .then((data) => {
-      // Extraer todos los nombres
-      const names = data.map((item) => item.name);
+      // Acceder al array dentro de "mods"
+      const names = data.mods.map((mod) => mod.name);
       // Mostrar separados por coma
       apiData.textContent = names.join(', ');
     })
