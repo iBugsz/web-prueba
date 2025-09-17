@@ -102,7 +102,7 @@ main {
 .content {
   max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 40px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }
