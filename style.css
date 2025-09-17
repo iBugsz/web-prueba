@@ -21,7 +21,7 @@ body {
   min-height: 100vh;
 }
 
-/* 🔹 Barra superior fija como Geode */
+/* 🔹 Barra superior */
 .topbar {
   position: fixed;
   top: 20px;
@@ -29,21 +29,6 @@ body {
   display: flex;
   gap: 14px;
   z-index: 100;
-}
-.btn-nav {
-  background: var(--ui-dark);
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-  transition: background 0.2s, transform 0.2s;
-}
-.btn-nav:hover {
-  background: var(--cta);
-  transform: translateY(-2px);
 }
 
 /* 🔹 Hero central */
@@ -124,24 +109,11 @@ body {
   font-size: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
   transition: background 0.25s, color 0.25s;
-}
-
-/* 🔹 Botón Hogar */
-.btn-nav:first-child {
   background: #2b0d0b; /* oscuro */
   color: #f08080; /* texto rojizo */
 }
-.btn-nav:first-child:hover {
-  background: #f08080; /* cambia al color de texto */
-  color: #2b0d0b; /* texto se invierte */
-}
 
-/* 🔹 Botón Mods */
-.btn-nav:last-child {
-  background: #fbeeed; /* claro */
-  color: #111; /* texto oscuro */
-}
-.btn-nav:last-child:hover {
+.btn-nav:hover {
   background: #111; /* oscuro */
   color: #fbeeed; /* texto claro */
 }
