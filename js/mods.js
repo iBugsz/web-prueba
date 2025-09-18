@@ -60,23 +60,19 @@ function mostrarMods() {
       ? mod.name.substring(0, mod.name.lastIndexOf('.'))
       : mod.name || 'Desconocido';
 
-    // 🔹 Card principal
     const modCard = document.createElement('div');
     modCard.className =
       'flex items-center gap-4 bg-[#222] rounded-lg p-4 transition-colors duration-200';
+    // ↑ cambiamos items-start → items-center para centrar verticalmente
 
-    // 🔹 Contenedor hoverable (imagen + título)
-    const hoverContainer = document.createElement('div');
-    hoverContainer.className = 'flex items-center gap-4';
-
-    // 🔹 Imagen
+    // 1️⃣ Bloque Logo
     const imgBox = document.createElement('div');
     imgBox.className =
-      'w-24 h-24 flex-shrink-0 flex items-center justify-center';
+      'w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-md overflow-hidden';
+    // ↑ overflow-hidden para que las imágenes no se salgan
 
-    // Gif de cargando / default
     const loader = document.createElement('img');
-    loader.src = 'https://i.gifer.com/XOsX.gif'; // gif de cargando/default
+    loader.src = 'https://i.gifer.com/XOsX.gif';
     loader.className = 'w-12 h-12';
     imgBox.appendChild(loader);
 
@@ -85,26 +81,22 @@ function mostrarMods() {
       img.src = mod.icon;
       img.alt = nameWithoutExt;
       img.className =
-        'w-full h-full object-cover rounded-md transition-transform duration-200 ease-in-out hidden'; // inicialmente oculta
-
-      // Cuando la imagen carga correctamente
+        'w-full h-full object-cover rounded-md transition-transform duration-200 ease-in-out hidden';
       img.onload = () => {
-        loader.remove(); // quitamos el loader
-        img.classList.remove('hidden'); // mostramos la imagen
+        loader.remove();
+        img.classList.remove('hidden');
       };
-
-      // Si falla la carga
-      img.onerror = () => {
-        // dejamos el loader (gif) visible
-        img.remove();
-      };
-
+      img.onerror = () => img.remove();
       imgBox.appendChild(img);
     }
 
-    // 🔹 Info
-    const info = document.createElement('div');
-    info.className = 'flex-1 space-y-1';
+    modCard.appendChild(imgBox);
+
+    // ------------------------------
+    // 2️⃣ Bloque Info Básica
+    // ------------------------------
+    const infoBasic = document.createElement('div');
+    infoBasic.className = 'flex-1 space-y-1';
 
     const title = document.createElement('h4');
     title.textContent = nameWithoutExt;
@@ -112,27 +104,78 @@ function mostrarMods() {
       'text-lg font-bold text-white transition-colors duration-200 cursor-pointer';
 
     const author = document.createElement('p');
-    author.textContent = `Autor: ${mod.author || 'Desconocido'}`;
-    author.className = 'text-sm text-gray-400';
+    author.textContent = `${mod.author || 'Desconocido'}`;
+    author.className = 'text-sm text-yellow-400';
 
     const desc = document.createElement('p');
     desc.textContent = mod.description || 'No hay descripción';
     desc.className = 'text-sm text-gray-300';
 
-    info.appendChild(title);
-    info.appendChild(author);
-    info.appendChild(desc);
+    infoBasic.appendChild(title);
+    infoBasic.appendChild(author);
+    infoBasic.appendChild(desc);
 
-    hoverContainer.appendChild(imgBox);
-    hoverContainer.appendChild(info);
+    modCard.appendChild(infoBasic);
 
-    modCard.appendChild(hoverContainer);
+    // ------------------------------
+    // 3️⃣ Bloque Info Adicional / Stats
+    // ------------------------------
+    // Solo crear el contenedor si hay algo que mostrar
+    if (
+      mod.total_downloads !== undefined ||
+      mod.latest_version ||
+      mod.created
+    ) {
+      const stats = document.createElement('div');
+      stats.className =
+        'space-y-1 text-sm ml-auto text-right flex flex-col gap-1';
+
+      // Versión
+      if (mod.latest_version) {
+        const version = document.createElement('p');
+        version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-500"></i> <span class="text-white">${mod.latest_version}</span>`;
+        stats.appendChild(version);
+      }
+
+      // Descargas
+      if (mod.total_downloads !== undefined) {
+        const downloads = document.createElement('p');
+        downloads.innerHTML = `<i class="fa-solid fa-download text-purple-500"></i> <span class="text-white">${mod.total_downloads}</span>`;
+        stats.appendChild(downloads);
+      }
+
+      // Fecha relativa
+      if (mod.created) {
+        const createdDate = new Date(mod.created);
+        const now = new Date();
+        const diffTime = now - createdDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+
+        let timeText = '';
+        let number = 0;
+        if (diffDays > 0) {
+          number = diffDays;
+          timeText = `día${diffDays > 1 ? 's' : ''}`;
+        } else {
+          number = diffHours;
+          timeText = `hora${diffHours > 1 ? 's' : ''}`;
+        }
+
+        const created = document.createElement('p');
+        created.innerHTML = `<i class="fa-solid fa-clock text-purple-500"></i> <span class="text-white">Hace ${number}</span> ${timeText}`;
+        stats.appendChild(created);
+      }
+
+      modCard.appendChild(stats);
+    }
+
     apiData.appendChild(modCard);
 
-    // 🔹 Eventos de hover sobre imagen o título
+    // 🔹 Eventos hover / click como antes
     [imgBox, title].forEach((el) => {
       el.addEventListener('mouseenter', () => {
-        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1.1)';
+        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1.2)';
         title.style.color = '#1de9b6';
         modCard.style.backgroundColor = '#2d2d3d';
       });
@@ -142,6 +185,16 @@ function mostrarMods() {
         title.style.textDecoration = 'none';
         modCard.style.backgroundColor = '#222';
       });
+    });
+
+    title.addEventListener('click', () => {
+      const modName = encodeURIComponent(mod.name);
+      window.open(`mod-detail.html?mod=${modName}`, '_self');
+    });
+
+    imgBox.addEventListener('click', () => {
+      const modName = encodeURIComponent(mod.name);
+      window.open(`mod-detail.html?mod=${modName}`, '_self');
     });
 
     title.addEventListener('mouseenter', () => {
