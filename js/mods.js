@@ -16,9 +16,10 @@ function cargarMods() {
     })
     .then((data) => {
       modsData = data.mods || [];
-      filtrados = modsData; // Al inicio se muestran todos
+      filtrados = modsData;
       paginaActual = 1;
-      mostrarMods();
+      ordenarPorMasDescargados(); // ✅ aplica orden inicial
+      selected.textContent = 'Más descargados'; // ✅ actualiza el texto en el botón
     })
     .catch((err) => {
       console.error('Error al cargar la API:', err);
@@ -158,8 +159,8 @@ function mostrarMods() {
       }
 
       // Fecha relativa
-      if (mod.created) {
-        const createdDate = new Date(mod.created);
+      if (mod.last_update) {
+        const createdDate = new Date(mod.last_update);
         const now = new Date();
         const diffTime = now - createdDate;
 
@@ -195,15 +196,15 @@ function mostrarMods() {
 
     apiData.appendChild(modCard);
 
-    // 🔹 Eventos hover / click como antes
     [imgBox, title].forEach((el) => {
       el.addEventListener('mouseenter', () => {
-        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1.2)';
+        imgBox.style.transform = 'scale(1.2)';
+        imgBox.style.transition = 'transform 0.3s ease';
         title.style.color = '#1de9b6';
         modCard.style.backgroundColor = '#2d2d3d';
       });
       el.addEventListener('mouseleave', () => {
-        if (imgBox.firstChild) imgBox.firstChild.style.transform = 'scale(1)';
+        imgBox.style.transform = 'scale(1)';
         title.style.color = 'white';
         title.style.textDecoration = 'none';
         modCard.style.backgroundColor = '#222';
@@ -329,6 +330,29 @@ button.addEventListener('click', () => {
 items.forEach((item) => {
   item.addEventListener('click', () => {
     selected.textContent = item.textContent;
+
+    // ✅ Si el usuario hace click en "Nombre (AZ)"
+    if (item.textContent.trim() === 'Nombre (AZ)') {
+      ordenarPorNombreAZ();
+    }
+
+    // ✅ Orden alfabético inverso (Z → A)
+    if (item.textContent.trim() === 'Nombre (ZA)') {
+      ordenarPorNombreZA();
+    }
+
+    if (item.textContent.trim() === 'Actualizados recientemente') {
+      ordenarPorRecientes();
+    }
+
+    if (item.textContent.trim() === 'Más antiguos') {
+      ordenarPorMasAntiguos();
+    }
+
+    if (item.textContent.trim() === 'Más descargados') {
+      ordenarPorMasDescargados();
+    }
+
     cerrarDropdown();
   });
 });
@@ -354,3 +378,61 @@ function cerrarDropdown() {
     dropdown.classList.add('hidden');
   }, 200); // igual al duration del contenedor
 }
+
+function ordenarPorNombreAZ() {
+  filtrados.sort((a, b) => {
+    const nombreA = (a.name || '').toLowerCase();
+    const nombreB = (b.name || '').toLowerCase();
+    return nombreA.localeCompare(nombreB, 'es', { sensitivity: 'base' });
+  });
+  paginaActual = 1; // reiniciamos a la primera página
+  mostrarMods(); // refrescamos la vista
+}
+
+// Función Z → A
+function ordenarPorNombreZA() {
+  filtrados.sort((a, b) => {
+    const nombreA = (a.name || '').toLowerCase();
+    const nombreB = (b.name || '').toLowerCase();
+    return nombreB.localeCompare(nombreA, 'es', { sensitivity: 'base' });
+  });
+  paginaActual = 1;
+  mostrarMods();
+}
+
+function ordenarPorRecientes() {
+  filtrados.sort((a, b) => {
+    const fechaA = new Date(a.last_update || 0);
+    const fechaB = new Date(b.last_update || 0);
+    return fechaB - fechaA; // más nuevo primero
+  });
+  paginaActual = 1;
+  mostrarMods();
+}
+
+function ordenarPorMasAntiguos() {
+  filtrados.sort((a, b) => {
+    const fechaA = new Date(a.last_update || 0);
+    const fechaB = new Date(b.last_update || 0);
+    return fechaA - fechaB; // Primero el más viejo
+  });
+  paginaActual = 1;
+  mostrarMods();
+}
+
+function ordenarPorMasDescargados() {
+  filtrados.sort((a, b) => {
+    const descargasA = a.total_downloads || 0;
+    const descargasB = b.total_downloads || 0;
+    return descargasB - descargasA; // primero el que tenga más descargas
+  });
+  paginaActual = 1;
+  mostrarMods();
+}
+
+document.querySelectorAll('.filter-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('bg-blue-300');
+    btn.classList.toggle('text-black');
+  });
+});

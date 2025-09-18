@@ -45,25 +45,53 @@
           <aside
             class="w-full md:w-[250px] bg-[#1e1e2e] text-white p-4 rounded-lg h-fit"
           >
-            <h3 class="text-lg font-bold mb-3">Filtros de búsqueda</h3>
+            <h3 class="text-lg font-bold mb-3">
+              <i class="fa fa-filter mr-2"></i> Filtros de búsqueda
+            </h3>
 
-            <details open class="mb-3">
-              <summary class="cursor-pointer">Plataforma</summary>
-              <label class="block"><input type="checkbox" /> Android</label>
-              <label class="block"><input type="checkbox" /> PC</label>
-            </details>
+            <div class="flex flex-col gap-2">
+              <!-- Windows -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-windows"></i> Ventanas
+              </button>
 
-            <details class="mb-3">
-              <summary class="cursor-pointer">Etiquetas</summary>
-              <label class="block"><input type="checkbox" /> Vehículos</label>
-              <label class="block"><input type="checkbox" /> Gráficos</label>
-              <label class="block"><input type="checkbox" /> Scripts</label>
-            </details>
+              <!-- macOS ARM -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-apple"></i> macOS (ARM)
+              </button>
 
-            <details>
-              <summary class="cursor-pointer">Otro</summary>
-              <label class="block"><input type="checkbox" /> Compatibles</label>
-            </details>
+              <!-- macOS x64 -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-apple"></i> macOS (x64)
+              </button>
+
+              <!-- Android 64 bits -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-android"></i> Android (64 bits)
+              </button>
+
+              <!-- Android 32 bits -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-android"></i> Android (32 bits)
+              </button>
+
+              <!-- iOS -->
+              <button
+                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+              >
+                <i class="fa-brands fa-apple"></i> iOS
+              </button>
+            </div>
           </aside>
 
           <!-- Columna Mods -->
@@ -109,17 +137,12 @@
                   <div
                     class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
                   >
-                    Más reciente
+                    Actualizados recientemente
                   </div>
                   <div
                     class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
                   >
-                    Actualizado recientemente
-                  </div>
-                  <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
-                  >
-                    El más antiguo
+                    Más antiguos
                   </div>
                   <div
                     class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
