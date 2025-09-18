@@ -133,14 +133,27 @@ function mostrarMods() {
       // Versión
       if (mod.latest_version) {
         const version = document.createElement('p');
-        version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-500"></i> <span class="text-white">${mod.latest_version}</span>`;
+        version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-500 mr-1.5"></i> <span class="text-white">${mod.latest_version}</span>`;
         stats.appendChild(version);
+      }
+
+      // Función para abreviar números
+      function formatNumber(num) {
+        if (num >= 1_000_000) {
+          return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+        } else if (num >= 1_000) {
+          return (num / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
+        } else {
+          return num.toString();
+        }
       }
 
       // Descargas
       if (mod.total_downloads !== undefined) {
         const downloads = document.createElement('p');
-        downloads.innerHTML = `<i class="fa-solid fa-download text-purple-500"></i> <span class="text-white">${mod.total_downloads}</span>`;
+        downloads.innerHTML = `<i class="fa-solid fa-download text-purple-500 mr-1.5"></i> <span class="text-white">${formatNumber(
+          mod.total_downloads,
+        )}</span>`;
         stats.appendChild(downloads);
       }
 
@@ -149,12 +162,22 @@ function mostrarMods() {
         const createdDate = new Date(mod.created);
         const now = new Date();
         const diffTime = now - createdDate;
+
+        const diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
+        const diffMonths = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30));
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
 
-        let timeText = '';
         let number = 0;
-        if (diffDays > 0) {
+        let timeText = '';
+
+        if (diffYears > 0) {
+          number = diffYears;
+          timeText = `año${diffYears > 1 ? 's' : ''}`;
+        } else if (diffMonths > 0) {
+          number = diffMonths;
+          timeText = `mes${diffMonths > 1 ? 'es' : ''}`;
+        } else if (diffDays > 0) {
           number = diffDays;
           timeText = `día${diffDays > 1 ? 's' : ''}`;
         } else {
@@ -163,7 +186,7 @@ function mostrarMods() {
         }
 
         const created = document.createElement('p');
-        created.innerHTML = `<i class="fa-solid fa-clock text-purple-500"></i> <span class="text-white">Hace ${number}</span> ${timeText}`;
+        created.innerHTML = `<i class="fa-solid fa-clock text-purple-500 mr-1.5"></i> <span class="text-white">Hace ${number}</span> ${timeText}`;
         stats.appendChild(created);
       }
 
@@ -275,3 +298,59 @@ function renderPaginacion() {
 
 // Ejecutar apenas cargue la página
 document.addEventListener('DOMContentLoaded', cargarMods);
+
+const button = document.getElementById('orderButton');
+const dropdown = document.getElementById('orderDropdown');
+const selected = document.getElementById('selectedOrder');
+const items = dropdown.querySelectorAll('.dropdown-item');
+
+// Toggle dropdown con animación
+button.addEventListener('click', () => {
+  if (dropdown.classList.contains('hidden')) {
+    dropdown.classList.remove('hidden');
+    setTimeout(() => {
+      dropdown.classList.remove('scale-95', 'opacity-0');
+      dropdown.classList.add('scale-100', 'opacity-100');
+
+      // animar items con delay
+      items.forEach((item, i) => {
+        item.style.transition = 'all 250ms ease';
+        item.style.transitionDelay = `${i * 60}ms`;
+        item.classList.remove('opacity-0', 'translate-y-2');
+        item.classList.add('opacity-100', 'translate-y-0');
+      });
+    }, 10);
+  } else {
+    cerrarDropdown();
+  }
+});
+
+// Selección de item
+items.forEach((item) => {
+  item.addEventListener('click', () => {
+    selected.textContent = item.textContent;
+    cerrarDropdown();
+  });
+});
+
+// Cerrar al hacer click fuera
+document.addEventListener('click', (e) => {
+  if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+    cerrarDropdown();
+  }
+});
+
+function cerrarDropdown() {
+  dropdown.classList.remove('scale-100', 'opacity-100');
+  dropdown.classList.add('scale-95', 'opacity-0');
+
+  items.forEach((item) => {
+    item.classList.add('opacity-0', 'translate-y-2');
+    item.classList.remove('opacity-100', 'translate-y-0');
+    item.style.transitionDelay = '0ms';
+  });
+
+  setTimeout(() => {
+    dropdown.classList.add('hidden');
+  }, 200); // igual al duration del contenedor
+}

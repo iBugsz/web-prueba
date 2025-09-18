@@ -84,19 +84,54 @@
                 />
               </div>
 
-              <div
-                class="flex items-center gap-2 bg-[#1e1e1e] px-3 py-2 rounded-md mt-2 sm:mt-0"
-              >
-                <i class="fa-solid fa-list text-gray-400"></i>
-                <span>Ordenar por :</span>
-                <select
-                  id="orderSelect"
-                  class="bg-[#111] text-white outline-none px-2 py-1 rounded-md cursor-pointer"
+              <div class="relative inline-block text-left mt-2 sm:mt-0">
+                <button
+                  id="orderButton"
+                  class="flex items-center gap-2 bg-[#1e1e1e] px-3 py-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-700"
                 >
-                  <option class="bg-[#111] text-white">Más descargados</option>
-                  <option class="bg-[#111] text-white">Más recientes</option>
-                  <option class="bg-[#111] text-white">Mejor valorados</option>
-                </select>
+                  <i class="fa-solid fa-list text-gray-400"></i>
+                  <span>Ordenar por :</span>
+                  <span id="selectedOrder" class="text-white"
+                    >Más descargados</span
+                  >
+                </button>
+
+                <!-- Dropdown oculto -->
+                <div
+                  id="orderDropdown"
+                  class="absolute mt-1 right-0 w-full bg-[#1e1e1e] shadow-lg rounded-md py-1 hidden z-10 transform scale-95 opacity-0 transition-all duration-200 origin-top"
+                >
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    Más descargados
+                  </div>
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    Más reciente
+                  </div>
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    Actualizado recientemente
+                  </div>
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    El más antiguo
+                  </div>
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    Nombre (AZ)
+                  </div>
+                  <div
+                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  >
+                    Nombre (ZA)
+                  </div>
+                </div>
               </div>
             </div>
 
