@@ -1,10 +1,10 @@
 const apiData = document.getElementById('apiData');
 const searchInput = document.getElementById('searchInput');
 
-let modsData = []; // Todos los mods cargados
-let filtrados = []; // Mods después de búsqueda
-let paginaActual = 1; // Página en la que estamos
-const modsPorPagina = 8; // Máximo 8 mods por página
+let modsData = [];
+let filtrados = [];
+let paginaActual = 1;
+const modsPorPagina = 8;
 
 function cargarMods() {
   fetch(
@@ -18,8 +18,10 @@ function cargarMods() {
       modsData = data.mods || [];
       filtrados = modsData;
       paginaActual = 1;
-      ordenarPorMasDescargados(); // ✅ aplica orden inicial
-      selected.textContent = 'Más descargados'; // ✅ actualiza el texto en el botón
+      sortByDownloads();
+      selected.textContent = 'Más descargados';
+      document.getElementById('selectedOrderHeader').textContent =
+        'Más descargados';
     })
     .catch((err) => {
       console.error('Error al cargar la API:', err);
@@ -47,13 +49,11 @@ function mostrarMods() {
     const modCard = document.createElement('div');
     modCard.className =
       'flex items-center gap-4 bg-[#222] rounded-lg p-4 transition-colors duration-200';
-    // ↑ cambiamos items-start → items-center para centrar verticalmente
 
-    // 1️⃣ Bloque Logo
+    // Imagen
     const imgBox = document.createElement('div');
     imgBox.className =
       'w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-md overflow-hidden';
-    // ↑ overflow-hidden para que las imágenes no se salgan
 
     const loader = document.createElement('img');
     loader.src = 'https://i.gifer.com/XOsX.gif';
@@ -76,9 +76,7 @@ function mostrarMods() {
 
     modCard.appendChild(imgBox);
 
-    // ------------------------------
-    // 2️⃣ Bloque Info Básica
-    // ------------------------------
+    // Info básica
     const infoBasic = document.createElement('div');
     infoBasic.className = 'flex-1 space-y-1';
 
@@ -101,10 +99,7 @@ function mostrarMods() {
 
     modCard.appendChild(infoBasic);
 
-    // ------------------------------
-    // 3️⃣ Bloque Info Adicional / Stats
-    // ------------------------------
-    // Solo crear el contenedor si hay algo que mostrar
+    // Stats
     if (
       mod.total_downloads !== undefined ||
       mod.latest_version ||
@@ -114,25 +109,20 @@ function mostrarMods() {
       stats.className =
         'space-y-1 text-sm ml-auto text-right flex flex-col gap-1';
 
-      // Versión
       if (mod.latest_version) {
         const version = document.createElement('p');
         version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-400 mr-1.5"></i> <span class="text-white">${mod.latest_version}</span>`;
         stats.appendChild(version);
       }
 
-      // Función para abreviar números
       function formatNumber(num) {
-        if (num >= 1_000_000) {
+        if (num >= 1_000_000)
           return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
-        } else if (num >= 1_000) {
+        if (num >= 1_000)
           return (num / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
-        } else {
-          return num.toString();
-        }
+        return num.toString();
       }
 
-      // Descargas
       if (mod.total_downloads !== undefined) {
         const downloads = document.createElement('p');
         downloads.innerHTML = `<i class="fa-solid fa-download text-purple-400 mr-1.5"></i> <span class="text-white">${formatNumber(
@@ -141,7 +131,6 @@ function mostrarMods() {
         stats.appendChild(downloads);
       }
 
-      // Fecha relativa
       if (mod.last_update) {
         const createdDate = new Date(mod.last_update);
         const now = new Date();
@@ -203,31 +192,20 @@ function mostrarMods() {
       const modName = encodeURIComponent(mod.name);
       window.open(`mod-detail.html?mod=${modName}`, '_self');
     });
-
-    title.addEventListener('mouseenter', () => {
-      title.style.color = '#1de9b6';
-      title.style.textDecoration = 'underline';
-    });
-    title.addEventListener('mouseleave', () => {
-      title.style.color = 'white';
-      title.style.textDecoration = 'none';
-    });
   });
 
   renderPaginacion();
 }
 
-// 🔹 Función de búsqueda
+// Buscador
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.toLowerCase().trim();
-
   filtrados = modsData.filter((mod) => {
     const name = mod.name?.toLowerCase() || '';
     const author = mod.author?.toLowerCase() || '';
     return name.includes(query) || author.includes(query);
   });
-
-  paginaActual = 1; // resetear página al buscar
+  paginaActual = 1;
   mostrarMods();
 });
 
@@ -238,7 +216,6 @@ function renderPaginacion() {
   const totalPaginas = Math.ceil(filtrados.length / modsPorPagina);
   if (totalPaginas <= 1) return;
 
-  const inicio = (paginaActual - 1) * modsPorPagina + 1;
   const fin = Math.min(paginaActual * modsPorPagina, filtrados.length);
 
   const pagination = document.createElement('div');
@@ -294,47 +271,59 @@ function renderPaginacion() {
   apiData.insertAdjacentElement('beforebegin', pagination);
 }
 
-// Ejecutar apenas cargue la página
 document.addEventListener('DOMContentLoaded', cargarMods);
 
+// Dropdown
 const button = document.getElementById('orderButton');
 const dropdown = document.getElementById('orderDropdown');
 const selected = document.getElementById('selectedOrder');
 const items = dropdown.querySelectorAll('.dropdown-item');
 
-// Toggle dropdown
+// Toggle
 button.addEventListener('click', () => {
   if (dropdown.classList.contains('hidden')) {
     dropdown.classList.remove('hidden');
     setTimeout(() => {
       dropdown.classList.remove('scale-95', 'opacity-0');
       dropdown.classList.add('scale-100', 'opacity-100');
-
-      // animar items
-      items.forEach((item, i) => {
-        item.style.transition = 'all 250ms ease';
-        item.style.transitionDelay = `${i * 60}ms`;
-        item.classList.remove('opacity-0', 'translate-y-2');
-        item.classList.add('opacity-100', 'translate-y-0');
-      });
     }, 10);
   } else {
     cerrarDropdown();
   }
 });
 
-// Selección de item
+// Selección con ID
 items.forEach((item) => {
   item.addEventListener('click', () => {
-    selected.textContent = item.textContent;
-    document.getElementById('selectedOrderHeader').textContent =
-      item.textContent;
+    const orderType = item.id; // <-- usamos el id directamente
+    // <-- usamos ID
+    const label = item.querySelector('span').textContent;
+
+    selected.textContent = label;
+    document.getElementById('selectedOrderHeader').textContent = label;
+
+    switch (orderType) {
+      case 'downloads':
+        sortByDownloads();
+        break;
+      case 'updated':
+        sortByUpdated();
+        break;
+      case 'oldest':
+        sortByOldest();
+        break;
+      case 'az':
+        sortByNameAZ();
+        break;
+      case 'za':
+        sortByNameZA();
+        break;
+    }
 
     cerrarDropdown();
   });
 });
 
-// Cerrar al hacer click fuera
 document.addEventListener('click', (e) => {
   if (!button.contains(e.target) && !dropdown.contains(e.target)) {
     cerrarDropdown();
@@ -344,69 +333,52 @@ document.addEventListener('click', (e) => {
 function cerrarDropdown() {
   dropdown.classList.remove('scale-100', 'opacity-100');
   dropdown.classList.add('scale-95', 'opacity-0');
-
-  items.forEach((item) => {
-    item.classList.add('opacity-0', 'translate-y-2');
-    item.classList.remove('opacity-100', 'translate-y-0');
-    item.style.transitionDelay = '0ms';
-  });
-
   setTimeout(() => {
     dropdown.classList.add('hidden');
   }, 200);
 }
 
-function ordenarPorNombreAZ() {
-  filtrados.sort((a, b) => {
-    const nombreA = (a.name || '').toLowerCase();
-    const nombreB = (b.name || '').toLowerCase();
-    return nombreA.localeCompare(nombreB, 'es', { sensitivity: 'base' });
-  });
-  paginaActual = 1; // reiniciamos a la primera página
-  mostrarMods(); // refrescamos la vista
-}
-
-// Función Z → A
-function ordenarPorNombreZA() {
-  filtrados.sort((a, b) => {
-    const nombreA = (a.name || '').toLowerCase();
-    const nombreB = (b.name || '').toLowerCase();
-    return nombreB.localeCompare(nombreA, 'es', { sensitivity: 'base' });
-  });
+// Ordenar funciones
+function sortByNameAZ() {
+  filtrados.sort((a, b) =>
+    (a.name || '').localeCompare(b.name || '', 'es', { sensitivity: 'base' }),
+  );
   paginaActual = 1;
   mostrarMods();
 }
 
-function ordenarPorRecientes() {
-  filtrados.sort((a, b) => {
-    const fechaA = new Date(a.last_update || 0);
-    const fechaB = new Date(b.last_update || 0);
-    return fechaB - fechaA; // más nuevo primero
-  });
+function sortByNameZA() {
+  filtrados.sort((a, b) =>
+    (b.name || '').localeCompare(a.name || '', 'es', { sensitivity: 'base' }),
+  );
   paginaActual = 1;
   mostrarMods();
 }
 
-function ordenarPorMasAntiguos() {
-  filtrados.sort((a, b) => {
-    const fechaA = new Date(a.last_update || 0);
-    const fechaB = new Date(b.last_update || 0);
-    return fechaA - fechaB; // Primero el más viejo
-  });
+function sortByOldest() {
+  filtrados.sort(
+    (a, b) => new Date(a.last_update || 0) - new Date(b.last_update || 0),
+  );
   paginaActual = 1;
   mostrarMods();
 }
 
-function ordenarPorMasDescargados() {
-  filtrados.sort((a, b) => {
-    const descargasA = a.total_downloads || 0;
-    const descargasB = b.total_downloads || 0;
-    return descargasB - descargasA; // primero el que tenga más descargas
-  });
+function sortByDownloads() {
+  filtrados.sort((a, b) => (b.total_downloads || 0) - (a.total_downloads || 0));
   paginaActual = 1;
   mostrarMods();
 }
 
+// nuevo: actualizado recientemente
+function sortByUpdated() {
+  filtrados.sort(
+    (a, b) => new Date(b.last_update || 0) - new Date(a.last_update || 0),
+  );
+  paginaActual = 1;
+  mostrarMods();
+}
+
+// filtros
 document.querySelectorAll('.filter-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     btn.classList.toggle('bg-blue-300');
