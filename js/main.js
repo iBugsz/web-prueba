@@ -1,2 +1,2 @@
-import './background.js';
+import './bg-animation.js';
 import './mods.js';

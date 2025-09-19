@@ -5,5 +5,7 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: #242525;
+
+  /* Fondo tipo “nocturno moderno” */
+  background: linear-gradient(160deg, #0a0f1e, #1b1f33);
 }
