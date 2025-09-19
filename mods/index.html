@@ -35,133 +35,198 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main
-      class="flex-1 flex flex-col w-full max-w-5xl mx-auto mt-24 sm:mt-16 px-4 sm:px-6"
-    >
-      <section class="content">
-        <!-- 🔹 Layout de 2 columnas -->
-        <div class="flex flex-col md:flex-row gap-6">
-          <!-- Filtros -->
-          <aside
-            class="w-full md:w-[250px] bg-[#1e1e2e] text-white p-4 rounded-lg h-fit"
-          >
-            <h3 class="text-lg font-bold mb-3">
-              <i class="fa fa-filter mr-2"></i> Filtros de búsqueda
-            </h3>
-
-            <div class="flex flex-col gap-2">
-              <!-- Windows -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-windows"></i> Ventanas
-              </button>
-
-              <!-- macOS ARM -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-apple"></i> macOS (ARM)
-              </button>
-
-              <!-- macOS x64 -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-apple"></i> macOS (x64)
-              </button>
-
-              <!-- Android 64 bits -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-android"></i> Android (64 bits)
-              </button>
-
-              <!-- Android 32 bits -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-android"></i> Android (32 bits)
-              </button>
-
-              <!-- iOS -->
-              <button
-                class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
-              >
-                <i class="fa-brands fa-apple"></i> iOS
-              </button>
-            </div>
-          </aside>
-
-          <!-- Columna Mods -->
-          <div class="flex-1 bg-[#1a1a26] p-5 rounded-lg text-white">
-            <!-- 🔹 Barra de búsqueda y ordenar -->
-            <div
-              class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4"
+    <main class="flex-1 flex flex-col w-full max-w-5xl mx-auto px-4 sm:px-6">
+      <section class="pt-32 pb-16 px-5">
+        <h1 class="text-3xl sm:text-4xl text-center mb-10">Explorar mods</h1>
+        <section class="content">
+          <!-- 🔹 Layout de 2 columnas -->
+          <div class="flex flex-col md:flex-row gap-3">
+            <!-- Filtros -->
+            <aside
+              class="w-full md:w-[250px] bg-[#0C0811] text-white p-4 rounded-lg h-fit"
             >
-              <div
-                class="flex items-center bg-[#1e1e1e] px-3 py-2 rounded-md flex-1"
-              >
-                <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2"></i>
-                <input
-                  id="searchInput"
-                  type="text"
-                  placeholder="Buscar mods..."
-                  class="bg-transparent outline-none text-white flex-1"
-                />
-              </div>
+              <h3 class="text-lg mb-3">
+                <i class="fa fa-filter mr-2"></i> Filtros de búsqueda
+              </h3>
 
-              <div class="relative inline-block text-left mt-2 sm:mt-0">
+              <div class="flex flex-col gap-2">
+                <!-- Windows -->
                 <button
-                  id="orderButton"
-                  class="flex items-center gap-2 bg-[#1e1e1e] px-3 py-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-700"
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
                 >
-                  <i class="fa-solid fa-list text-gray-400"></i>
-                  <span>Ordenar por :</span>
-                  <span id="selectedOrder" class="text-white"
-                    >Más descargados</span
-                  >
+                  <i class="fa-brands fa-windows"></i> Ventanas
                 </button>
 
-                <!-- Dropdown oculto -->
-                <div
-                  id="orderDropdown"
-                  class="absolute mt-1 right-0 w-full bg-[#1e1e1e] shadow-lg rounded-md py-1 hidden z-10 transform scale-95 opacity-0 transition-all duration-200 origin-top"
+                <!-- macOS ARM -->
+                <button
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
                 >
-                  <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                  <i class="fa-brands fa-apple"></i> macOS (ARM)
+                </button>
+
+                <!-- macOS x64 -->
+                <button
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+                >
+                  <i class="fa-brands fa-apple"></i> macOS (x64)
+                </button>
+
+                <!-- Android 64 bits -->
+                <button
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+                >
+                  <i class="fa-brands fa-android"></i> Android (64 bits)
+                </button>
+
+                <!-- Android 32 bits -->
+                <button
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+                >
+                  <i class="fa-brands fa-android"></i> Android (32 bits)
+                </button>
+
+                <!-- iOS -->
+                <button
+                  class="filter-btn flex items-center gap-2 border border-blue-400 px-2 py-1 rounded-md hover:bg-gray-700 w-fit text-sm"
+                >
+                  <i class="fa-brands fa-apple"></i> iOS
+                </button>
+              </div>
+            </aside>
+
+            <!-- Columna Mods -->
+            <div class="flex-1 rounded-lg text-white">
+              <!-- 🔹 Barra de búsqueda y ordenar -->
+              <div
+                class="flex flex-col sm:flex-row justify-between bg-[#0C0811] p-2 items-center mb-4 gap-4 rounded-lg"
+              >
+                <!-- Buscador -->
+                <div class="flex items-center px-3 py-2 rounded-md flex-1">
+                  <i
+                    class="fa-solid fa-magnifying-glass text-gray-400 mr-2"
+                  ></i>
+                  <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Buscar mods..."
+                    class="bg-transparent outline-none text-white flex-1"
+                  />
+                </div>
+
+                <!-- Ordenar -->
+                <div class="relative inline-block text-left mt-2 sm:mt-0 w-104">
+                  <!-- Botón inicial -->
+                  <button
+                    id="orderButton"
+                    class="flex w-full items-center justify-between px-3 py-2 cursor-pointer transition-all duration-200 rounded-md bg-[#0C0811]"
                   >
-                    Más descargados
-                  </div>
+                    <span class="flex items-center gap-2">
+                      <i class="fa-solid fa-list"></i>
+                      <span>Ordenar por :</span>
+                      <span id="selectedOrder" class="text-white"
+                        >Nombre (AZ)</span
+                      >
+                    </span>
+                  </button>
+
+                  <!-- Contenedor flotante (⬅️ ahora encima del botón, no debajo) -->
                   <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
+                    id="orderDropdown"
+                    class="hidden absolute top-0 left-0 w-full bg-[#0C0811] border border-purple-600 rounded-md shadow-lg z-50 scale-95 opacity-0 transition-all duration-200"
                   >
-                    Actualizados recientemente
-                  </div>
-                  <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
-                  >
-                    Más antiguos
-                  </div>
-                  <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
-                  >
-                    Nombre (AZ)
-                  </div>
-                  <div
-                    class="dropdown-item px-4 py-2 cursor-pointer rounded-md text-white opacity-0 transform translate-y-2 transition-colors duration-150 hover:bg-gray-700"
-                  >
-                    Nombre (ZA)
+                    <!-- Header fijo: izquierda + derecha (sin salto) -->
+                    <div
+                      class="flex items-center justify-between px-3 py-2 text-white"
+                    >
+                      <!-- Izquierda: icon + label (no se parte) -->
+                      <div
+                        class="flex items-center gap-2 whitespace-nowrap text-purple-400"
+                      >
+                        <i class="fa-solid fa-list"></i>
+                        <span class="">Ordenar por :</span>
+                      </div>
+
+                      <!-- Derecha: selección actual (no se parte, no se encoge) -->
+                      <div
+                        id="selectedOrderHeader"
+                        class="text-purple-400 whitespace-nowrap flex-shrink-0"
+                      >
+                        Más descargados
+                      </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div
+                      class="w-[80%] h-px bg-purple-600 mx-auto mb-2 mt-2"
+                    ></div>
+
+                    <!-- Opciones -->
+                    <div class="flex flex-col">
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-solid fa-download cursor-pointer"
+                          data-value="Más descargados"
+                        ></i>
+                        <span>Más descargados</span>
+                      </div>
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-solid fa-clock cursor-pointer"
+                          data-value="Más reciente"
+                        ></i>
+                        <span>Más reciente</span>
+                      </div>
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-solid fa-clock-rotate-left cursor-pointer"
+                          data-value="Actualizado recientemente"
+                        ></i>
+                        <span>Actualizado recientemente</span>
+                      </div>
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-regular fa-calendar cursor-pointer"
+                          data-value="El más antiguo"
+                        ></i>
+                        <span>El más antiguo</span>
+                      </div>
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-down-a-z cursor-pointer"
+                          data-value="Nombre (AZ)"
+                        ></i>
+                        <span>Nombre (AZ)</span>
+                      </div>
+                      <div
+                        class="dropdown-item flex items-center gap-2 px-4 py-2 text-white hover:bg-gray-700 cursor-pointer"
+                      >
+                        <i
+                          class="fa-solid fa-arrow-down-z-a cursor-pointer"
+                          data-value="Nombre (ZA)"
+                        ></i>
+                        <span>Nombre (ZA)</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Aquí el JS colocará las tarjetas dinámicamente -->
-            <div id="apiData" class="space-y-4"></div>
+              <div class="bg-[#0C0811] p-2 rounded-lg">
+                <div id="apiData" class="space-y-4 bg-[#fffff]"></div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </section>
     </main>
 

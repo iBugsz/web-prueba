@@ -27,23 +27,6 @@ function cargarMods() {
     });
 }
 
-// 🔹 Función de búsqueda
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase().trim();
-
-  filtrados = modsData.filter((mod) => {
-    const name = mod.name?.toLowerCase() || '';
-    const author = mod.author?.toLowerCase() || '';
-    const desc = mod.description?.toLowerCase() || '';
-    return (
-      name.includes(query) || author.includes(query) || desc.includes(query)
-    );
-  });
-
-  paginaActual = 1; // resetear página al buscar
-  mostrarMods();
-});
-
 function mostrarMods() {
   apiData.innerHTML = '';
 
@@ -134,7 +117,7 @@ function mostrarMods() {
       // Versión
       if (mod.latest_version) {
         const version = document.createElement('p');
-        version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-500 mr-1.5"></i> <span class="text-white">${mod.latest_version}</span>`;
+        version.innerHTML = `<i class="fa-solid fa-code-branch text-purple-400 mr-1.5"></i> <span class="text-white">${mod.latest_version}</span>`;
         stats.appendChild(version);
       }
 
@@ -152,7 +135,7 @@ function mostrarMods() {
       // Descargas
       if (mod.total_downloads !== undefined) {
         const downloads = document.createElement('p');
-        downloads.innerHTML = `<i class="fa-solid fa-download text-purple-500 mr-1.5"></i> <span class="text-white">${formatNumber(
+        downloads.innerHTML = `<i class="fa-solid fa-download text-purple-400 mr-1.5"></i> <span class="text-white">${formatNumber(
           mod.total_downloads,
         )}</span>`;
         stats.appendChild(downloads);
@@ -187,7 +170,7 @@ function mostrarMods() {
         }
 
         const created = document.createElement('p');
-        created.innerHTML = `<i class="fa-solid fa-clock text-purple-500 mr-1.5"></i> <span class="text-white">Hace ${number}</span> ${timeText}`;
+        created.innerHTML = `<i class="fa-solid fa-clock text-purple-400 mr-1.5"></i> <span class="text-white">Hace ${number}</span> ${timeText}`;
         stats.appendChild(created);
       }
 
@@ -233,6 +216,20 @@ function mostrarMods() {
 
   renderPaginacion();
 }
+
+// 🔹 Función de búsqueda
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  filtrados = modsData.filter((mod) => {
+    const name = mod.name?.toLowerCase() || '';
+    const author = mod.author?.toLowerCase() || '';
+    return name.includes(query) || author.includes(query);
+  });
+
+  paginaActual = 1; // resetear página al buscar
+  mostrarMods();
+});
 
 function renderPaginacion() {
   const oldPagination = document.querySelector('.pagination');
@@ -305,7 +302,7 @@ const dropdown = document.getElementById('orderDropdown');
 const selected = document.getElementById('selectedOrder');
 const items = dropdown.querySelectorAll('.dropdown-item');
 
-// Toggle dropdown con animación
+// Toggle dropdown
 button.addEventListener('click', () => {
   if (dropdown.classList.contains('hidden')) {
     dropdown.classList.remove('hidden');
@@ -313,7 +310,7 @@ button.addEventListener('click', () => {
       dropdown.classList.remove('scale-95', 'opacity-0');
       dropdown.classList.add('scale-100', 'opacity-100');
 
-      // animar items con delay
+      // animar items
       items.forEach((item, i) => {
         item.style.transition = 'all 250ms ease';
         item.style.transitionDelay = `${i * 60}ms`;
@@ -330,28 +327,8 @@ button.addEventListener('click', () => {
 items.forEach((item) => {
   item.addEventListener('click', () => {
     selected.textContent = item.textContent;
-
-    // ✅ Si el usuario hace click en "Nombre (AZ)"
-    if (item.textContent.trim() === 'Nombre (AZ)') {
-      ordenarPorNombreAZ();
-    }
-
-    // ✅ Orden alfabético inverso (Z → A)
-    if (item.textContent.trim() === 'Nombre (ZA)') {
-      ordenarPorNombreZA();
-    }
-
-    if (item.textContent.trim() === 'Actualizados recientemente') {
-      ordenarPorRecientes();
-    }
-
-    if (item.textContent.trim() === 'Más antiguos') {
-      ordenarPorMasAntiguos();
-    }
-
-    if (item.textContent.trim() === 'Más descargados') {
-      ordenarPorMasDescargados();
-    }
+    document.getElementById('selectedOrderHeader').textContent =
+      item.textContent;
 
     cerrarDropdown();
   });
@@ -376,7 +353,7 @@ function cerrarDropdown() {
 
   setTimeout(() => {
     dropdown.classList.add('hidden');
-  }, 200); // igual al duration del contenedor
+  }, 200);
 }
 
 function ordenarPorNombreAZ() {
