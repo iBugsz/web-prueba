@@ -1,5 +1,3 @@
-// pagination.js
-
 export function renderPaginacion({
   container,
   filtrados,
