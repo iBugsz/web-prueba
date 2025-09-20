@@ -95,11 +95,11 @@ function mostrarMods() {
     if (
       mod.total_downloads !== undefined ||
       mod.latest_version ||
-      mod.created
+      mod.last_update
     ) {
       const stats = document.createElement('div');
       stats.className =
-        'space-y-1 text-sm ml-auto text-right flex flex-col gap-1';
+        'space-y-1 text-sm ml-auto text-right flex flex-col gap-1 hidden sm:flex';
 
       if (mod.latest_version) {
         const version = document.createElement('p');
